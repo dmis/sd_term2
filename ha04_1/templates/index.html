@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+Main page
+{% endblock %}
+{% block content %}
+<table style="width: 100%;">
+    <tr>
+        <td>
+            <h3>All posts:</h3>
+        </td>
+
+</table>
+
+    {% for post in posts %}
+        <div class="row">
+            <div class="col-md-11">
+                <a href="/{{post[0]}}" style="text-decoration: none; color: black">
+                    <h4>{{ post[1] }}</h4>
+                </a>
+            </div>
+            <div class="col-md-1">
+                <a href="/del/{{post[0]}}">
+                    <span class="badge badge-dark">Del</span>
+                </a>
+            </div>
+        </div>
+        <span class="badge badge-primary">{{ post[2] }}</span>
+        <hr>
+    {% endfor %}
+
+{% endblock %}

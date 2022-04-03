@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+Create a New Post
+{% endblock %}
+{% block content %}
+{% if message %}
+<div class="alert {{alert}}" role="alert">
+      {{message}}
+ </div>
+{% endif %}
+<form method="post">
+    <div class="form-group">
+        <label for="title">Enter title: </label>
+        <input type="text" name="title"
+               placeholder="Post title" class="form-control"
+               value="{{ request.form['title'] }}"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea name="content" placeholder="Post content"
+                  class="form-control">{{ request.form['content'] }}</textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add a new post</button>
+    </div>
+</form>
+{% endblock %}
