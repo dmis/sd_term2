@@ -64,35 +64,63 @@ if __name__ == "__main__":
     company2 = Department('Microsoft', ceo)
     # ---  HA 04 -------
     # --- Compare companies by staff size(A > B = True)
+    print('staff size of company :', len(company.all_employees))
+    print('staff size of company2 :', len(company2.all_employees))
     assert company >= company2
+    print(company >= company2)
     assert company2 <= company
+    print(company <= company2)
     assert company != company2
+    print(company != company2)
     assert company == company
-    # --- Test -----
-    print('Show changing history of ' + e4.name)
-    for h in e4.history:
-        print(str(h.init_date) + ' : ' + h.description)
+    print(company == company2)
 
-    print('\nCheck  salary before increasing')
-    for i in sd.employees:
-        print(i.name + ' : ' + str(i.salary))
-    sd.change_salary(True, 10)
 
-    print('\nCheck  salary after increasing')
-    for i in sd.employees:
-        print(i.name + ' : ' + str(i.salary))
+    # --- Get companies vacancies list
 
-    print('\nSearch employees with salary more than 0 but less than 1500')
-    fltr = select_workers_by_salary(company, 0, 1500)
-    for i in fltr:
-        print(i.name + ' : ' + str(i.salary))
+    company.add_vacancy(Position.TEAM_LEADER)
+    company.add_vacancy(Position.TEAM_LEADER)
+    company.add_vacancy(Position.HEAD_OF_DEPARTMENT)
 
-    print('\nSearch employees with position Head')
-    fltr2 = select_workers_by_position(company, Position.HEAD_OF_DEPARTMENT)
-    for i in fltr2:
-        print(i.name + ' : ' + str(i.position.value))
+    company2.add_vacancy(Position.TEAM_LEADER)
+    company2.add_vacancy(Position.DEVELOPER)
+    # --- difference abs(A - B)
+    print(company - company2)
+    print(company2 - company)
 
-    print('\n All employees list ')
-    all = company.all_employees
-    for a in all:
-        print(a.name + ' | ' + a.department.name+ ' | ' + a.position.value)
+    # --- union (A or B)
+    print(company | company2)
+    print(company2 | company)
+
+    # --- intersection (and getting min of them) (A and B)
+    print(company & company2)
+    print(company2 & company)
+
+    # --- Test HA 03 -----
+    # print('Show changing history of ' + e4.name)
+    # for h in e4.history:
+    #     print(str(h.init_date) + ' : ' + h.description)
+    #
+    # print('\nCheck  salary before increasing')
+    # for i in sd.employees:
+    #     print(i.name + ' : ' + str(i.salary))
+    # sd.change_salary(True, 10)
+    #
+    # print('\nCheck  salary after increasing')
+    # for i in sd.employees:
+    #     print(i.name + ' : ' + str(i.salary))
+    #
+    # print('\nSearch employees with salary more than 0 but less than 1500')
+    # fltr = select_workers_by_salary(company, 0, 1500)
+    # for i in fltr:
+    #     print(i.name + ' : ' + str(i.salary))
+    #
+    # print('\nSearch employees with position Head')
+    # fltr2 = select_workers_by_position(company, Position.HEAD_OF_DEPARTMENT)
+    # for i in fltr2:
+    #     print(i.name + ' : ' + str(i.position.value))
+    #
+    # print('\n All employees list ')
+    # all = company.all_employees
+    # for a in all:
+    #     print(a.name + ' | ' + a.department.name+ ' | ' + a.position.value)

@@ -67,6 +67,7 @@ class Department:
         self.name = name
         self._departments = []
         self._employees = []
+        self._vacancies = {}
         self.hire(boss)
 
     def add_department(self, department):
@@ -101,16 +102,25 @@ class Department:
             if e.active:
                 e.salary = e.salary * (amount / 100 + 1) if is_percent else e.salary + amount
 
+    def add_vacancy(self, position: Position):
+        count = self._vacancies.get(position, 0)
+        self._vacancies[position] = count + 1
+
+    @property
+    def vacancies(self) -> List[Position]:
+        return self._vacancies
+
     def __check_class(func):
         def wrapper(one, two):
             if not isinstance(two, Department):
                 return None
             return func(one, two)
+
         return wrapper
 
     @__check_class
     def __gt__(self, other):
-        return  len(self.all_employees) > len(other.all_employees)
+        return len(self.all_employees) > len(other.all_employees)
 
     @__check_class
     def __ge__(self, other):
@@ -134,12 +144,24 @@ class Department:
 
     @__check_class
     def __sub__(self, other):
-        return True
+        result = self._vacancies.copy()
+        for key in result.keys():
+            count = other.vacancies.get(key, 0)
+            result[key] = abs(result[key] - count)
+        return result
 
     @__check_class
     def __or__(self, other):
-        return True
+        result = self._vacancies.copy()
+        for key, value in other.vacancies.items():
+            result[key] = result.get(key, 0) + value
+        return result
 
     @__check_class
     def __and__(self, other):
-        return True
+        result = {}
+        for key, value in self._vacancies.items():
+            count = other.vacancies.get(key, 0)
+            if count > 0:
+                result[key] = min(value, count)
+        return result
