@@ -1,0 +1,45 @@
+requests: [
+    {
+        'method' : 'GET',
+        'url': 'http://127.0.0.1:8888/',
+        'headers': {},
+        'body': None,
+    },
+    {
+        'method' : 'GET',
+        'url': 'http://127.0.0.1:8887/',
+        'headers': {},
+        'body': None,
+    },
+    {
+        'method' : 'GET',
+        'url': 'http://127.0.0.1:8889/',
+        'headers': {},
+        'body': None,
+    },
+    {
+        'method' : 'GET',
+        'url': 'http://127.0.0.1:8000',
+        'headers': {},
+        'body': None,
+    },
+]
+STAGES: [
+    {
+        'requests': requests,
+        'timeout': 5,
+        'duration': 10,
+        'rps_from': 1,
+        'rps_to': 50,
+        'repeats': 2,
+    },
+    {
+        'requests': requests,
+        'timeout': 5,
+        'duration': 10,
+        'rps_from': 100,
+        'rps_to': 100,
+        'repeats': 3,
+    },
+
+]
